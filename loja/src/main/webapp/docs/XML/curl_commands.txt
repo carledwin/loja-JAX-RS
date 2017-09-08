@@ -140,5 +140,115 @@
 root@carledwin-Lenovo-G40-80:/home/carledwin# 
 
 
+*****$ curl -v http://localhost:8090/carrinhos/xml/1
 
+>>>>>> RESULT
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 8090 (#0)
+> GET /carrinhos/xml/1 HTTP/1.1
+> Host: localhost:8090
+> User-Agent: curl/7.47.0
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: application/xml
+< Date: Fri, 08 Sep 2017 17:58:03 GMT
+< Content-Length: 568
+< 
+
+>>>>> RESPONSE 
+<br.com.alura.loja.modelo.Carrinho>
+  <produtos>
+    <br.com.alura.loja.modelo.Produto>
+      <preco>4000.0</preco>
+      <id>6237</id>
+      <nome>Videogame 4</nome>
+      <quantidade>1</quantidade>
+    </br.com.alura.loja.modelo.Produto>
+    <br.com.alura.loja.modelo.Produto>
+      <preco>60.0</preco>
+      <id>3467</id>
+      <nome>Jogo de esporte</nome>
+      <quantidade>2</quantidade>
+    </br.com.alura.loja.modelo.Produto>
+  </produtos>
+  <rua>Rua Vergueiro 3185, 8 andar</rua>
+  <cidade>S�o Paulo</cidade>
+  <id>1</id>
+* Connection #0 to host localhost left intact
+
+
+*****$ curl -v -X "DELETE" http://localhost:8090/carrinhos/xml/1/produtos/6237
+
+>>>>> RESULT
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 8090 (#0)
+> DELETE /carrinhos/xml/1/produtos/6237 HTTP/1.1
+> Host: localhost:8090
+> User-Agent: curl/7.47.0
+> Accept: */*
+> 
+
+>>>>> RESPONSE 
+< HTTP/1.1 200 OK
+< Date: Fri, 08 Sep 2017 18:03:10 GMT
+< Content-Length: 0
+< 
+* Connection #0 to host localhost left intact
+
+
+*****$ curl -v http://localhost:8090/carrinhos/xml/1
+
+>>>>>> RESULT
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 8090 (#0)
+> GET /carrinhos/xml/1 HTTP/1.1
+> Host: localhost:8090
+> User-Agent: curl/7.47.0
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: application/xml
+< Date: Fri, 08 Sep 2017 18:04:16 GMT
+< Content-Length: 377
+< 
+
+>>>>>>> RESPONSE
+<br.com.alura.loja.modelo.Carrinho>
+  <produtos>
+    <br.com.alura.loja.modelo.Produto>
+      <preco>60.0</preco>
+      <id>3467</id>
+      <nome>Jogo de esporte</nome>
+      <quantidade>2</quantidade>
+    </br.com.alura.loja.modelo.Produto>
+  </produtos>
+  <rua>Rua Vergueiro 3185, 8 andar</rua>
+  <cidade>S�o Paulo</cidade>
+  <id>1</id>
+* Connection #0 to host localhost left intact
+
+ *****$ curl -v http://localhost:8090/carrinhos/xml/1
+
+>>>>> RESULT
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 8090 (#0)
+> GET /carrinhos/xml/1 HTTP/1.1
+> Host: localhost:8090
+> User-Agent: curl/7.47.0
+> Accept: */*
+> 
+
+>>>>>> RESPONSE
+< HTTP/1.1 200 OK
+< Content-Type: application/xml
+< Date: Fri, 08 Sep 2017 18:07:42 GMT
+< Content-Length: 171
+< 
+<br.com.alura.loja.modelo.Carrinho>
+  <produtos/>
+  <rua>Rua Vergueiro 3185, 8 andar</rua>
+  <cidade>S�o Paulo</cidade>
+  <id>1</id>
+* Connection #0 to host localhost left intact
 

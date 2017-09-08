@@ -8,6 +8,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.filter.LoggingFilter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +40,16 @@ public class ClientTest {
 	
 	@Before
 	public void startServidor() {
+		
 		server = Servidor.inicializaServidor();
+		
+		client = ClientBuilder.newClient();
+		
+		target = client.target(HTTP_LOCALHOST_8090);
+		
+		ClientConfig clientConfig = new ClientConfig();
+		
+		clientConfig.register(new LoggingFilter());
 	}
 	
 	@After
@@ -49,10 +60,6 @@ public class ClientTest {
 	@Test
 	public void testQueBuscaUmCarrinhoTrazOCarrinhoEsperadoToXML() {
 
-		client = ClientBuilder.newClient();
-
-		target = client.target(HTTP_LOCALHOST_8090);
-		
 		String conteudo = target.path(CARRINHOS_XML_1).request().get(String.class);
 		//System.out.println(conteudo);
 		
@@ -65,10 +72,6 @@ public class ClientTest {
 	@Test
 	public void testQueBuscaUmCarrinhoTrazOCarrinhoEsperadoToJSON() {
 		
-		client = ClientBuilder.newClient();
-		
-		target = client.target(HTTP_LOCALHOST_8090);
-		
 		String conteudo = target.path(CARRINHOS_JSON_1).request().get(String.class);
 		//System.out.println(conteudo);
 		
@@ -80,8 +83,6 @@ public class ClientTest {
 	@Test
 	public void testQueAConexaoComOServidorFunciona() {
 		
-		client = ClientBuilder.newClient();
-		
 		target =  client.target(HTTP_WWW_MOCKY_IO);
 		
 		String conteudo = target.path(V2_52AAF5DEEE7BA8C70329FB7D).request().get(String.class);
@@ -91,10 +92,6 @@ public class ClientTest {
 
 	@Test
 	public void testaQueSuportaNovosCarrinhos() {
-		
-		client = ClientBuilder.newClient();
-		
-		target = client.target(HTTP_LOCALHOST_8090);
 		
 		Carrinho carrinho = new Carrinho();
 		carrinho.adiciona(new Produto(324l, NOTEBOOK, 4565, 1));
