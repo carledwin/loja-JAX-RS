@@ -63,6 +63,8 @@
 > Content-Length: 310
 > Content-Type: application/x-www-form-urlencoded
 > 
+
+>>>>> RESPONSE
 * upload completely sent off: 310 out of 310 bytes
 < HTTP/1.1 200 OK
 < Content-Type: application/xml
@@ -70,6 +72,73 @@
 < Content-Length: 24
 < 
 * Connection #0 to host localhost left intact
-
->>>>>RESPONSE
 <status>sucesso</status> 
+
+
+******$ curl -v -d "<br.com.alura.loja.modelo.Carrinho><produtos><br.com.alura.loja.modelo.Produto><preco>55.0</preco><id>445</id><nome>Cubo Mágico 3X3X3</nome><quantidade>4</quantidade></br.com.alura.loja.modelo.Produto></produtos><rua>Rua Zebra 546 </rua><cidade>Guarulhos</cidade><id>2</id></br.com.alura.loja.modelo.Carrinho>" http://localhost:8090/carrinhos
+
+>>>>> RESULT
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 8090 (#0)
+> POST /carrinhos HTTP/1.1
+> Host: localhost:8090
+> User-Agent: curl/7.47.0
+> Accept: */*
+> Content-Length: 310
+> Content-Type: application/x-www-form-urlencoded
+> 
+
+>>>>>> RESPONSE
+* upload completely sent off: 310 out of 310 bytes
+< HTTP/1.1 201 Created
+< Location: http://localhost:8090/carrinhos/2
+< Date: Fri, 08 Sep 2017 03:57:24 GMT
+< Content-Length: 0
+< 
+* Connection #0 to host localhost left intact
+
+
+*******$ curl -v -d "<br.com.alura.loja.modelo.Carrinho><produtos><br.com.alura.loja.modelo.Produto><preco>55.0</preco><id>445</id><nome>Cubo Mágico 3X3X3</nome><quantidade>4</quantidade></br.com.alura.loja.modelo.Produto></produtos><rua>Rua Zebra 546 </rua><cidade>Guarulhos</cidade><id>2</id></br.com.alura.loja.modelo.Carrinho>" http://localhost:8090/carrinhos/xml
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 8090 (#0)
+> POST /carrinhos/xml HTTP/1.1
+> Host: localhost:8090
+> User-Agent: curl/7.47.0
+> Accept: */*
+> Content-Length: 310
+> Content-Type: application/x-www-form-urlencoded
+> 
+
+>>>> RESPONSE
+* upload completely sent off: 310 out of 310 bytes
+< HTTP/1.1 415 Unsupported Media Type
+< Date: Fri, 08 Sep 2017 04:05:23 GMT
+< Content-Length: 0
+< 
+* Connection #0 to host localhost left intact
+
+
+*****$ curl -v -H "Content-Type: application/xml" -d "<br.com.alura.loja.modelo.Carrinho><produtos><br.com.alura.loja.modelo.Produto><preco>55.0</preco><id>445</id><nome>Cubo Mágico 3X3X3</nome><quantidade>4</quantidade></br.com.alura.loja.modelo.Produto></produtos><rua>Rua Zebra 546 </rua><cidade>Guarulhos</cidade><id>2</id></br.com.alura.loja.modelo.Carrinho>" http://localhost:8090/carrinhos/xml
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 8090 (#0)
+> POST /carrinhos/xml HTTP/1.1
+> Host: localhost:8090
+> User-Agent: curl/7.47.0
+> Accept: */*
+> Content-Type: application/xml
+> Content-Length: 310
+> 
+
+>>>>> RESPONSE
+* upload completely sent off: 310 out of 310 bytes
+< HTTP/1.1 201 Created
+< Location: http://localhost:8090/carrinhos/2
+< Date: Fri, 08 Sep 2017 04:08:07 GMT
+< Content-Length: 0
+< 
+* Connection #0 to host localhost left intact
+root@carledwin-Lenovo-G40-80:/home/carledwin# 
+
+
+
+
