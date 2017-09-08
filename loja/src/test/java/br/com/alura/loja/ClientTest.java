@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 
 import br.com.alura.loja.modelo.Carrinho;
@@ -29,17 +30,30 @@ public class ClientTest {
 	}
 
 	@Test
-	public void testQueBuscarUmCarrinhoTrazOCarrinhoEsperado() {
+	public void testQueBuscaUmCarrinhoTrazOCarrinhoEsperadoToXML() {
 
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target("http://localhost:8090");
-		String conteudo = target.path("/carrinhos").request().get(String.class);
+		String conteudo = target.path("/carrinhos/xml/1").request().get(String.class);
 		//System.out.println(conteudo);
 		
 		Carrinho carrinho = (Carrinho) new XStream().fromXML(conteudo);
 		
 		Assert.assertEquals("Rua Vergueiro 3185, 8 andar", carrinho.getRua());
 		
+	}
+	
+	@Test
+	public void testQueBuscaUmCarrinhoTrazOCarrinhoEsperadoToJSON() {
+		
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target("http://localhost:8090");
+		String conteudo = target.path("/carrinhos/json/1").request().get(String.class);
+		//System.out.println(conteudo);
+		
+		Carrinho carrinho = new Gson().fromJson(conteudo, Carrinho.class);
+		
+		Assert.assertEquals("Rua Vergueiro 3185, 8 andar", carrinho.getRua());
 	}
 	
 	@Test

@@ -83,4 +83,8 @@ public class Carrinho {
 		
 	}
 
+	public String toJSON() {
+		return new Gson().toJson(this);
+	}
+
 }
