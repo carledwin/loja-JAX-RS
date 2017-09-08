@@ -11,17 +11,27 @@ public class Servidor {
 
 	public static void main(String... strings) throws IOException {
 		
-		ResourceConfig config = new ResourceConfig().packages("br.com.alura.loja");
-		URI uri = URI.create("http://localhost:8090/");
-		HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uri, config );
+		HttpServer server = inicializaServidor();
 		
 		System.out.println("Servidor iniciando...");
 		System.out.println("Servidor rodando...");
 		
 		System.in.read();
-		server.stop();
+		
+		finalizaServidor(server);
 		
 		System.out.println("Desligando Servidor...");
 		System.out.println("Servidor encerrado.");
+	}
+
+	public static void finalizaServidor(HttpServer server) {
+		server.stop();
+	}
+
+	public static HttpServer inicializaServidor() {
+		ResourceConfig config = new ResourceConfig().packages("br.com.alura.loja");
+		URI uri = URI.create("http://localhost:8090/");
+		HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uri, config );
+		return server;
 	}
 }
