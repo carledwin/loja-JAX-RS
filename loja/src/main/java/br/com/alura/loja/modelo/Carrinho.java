@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 
+@XmlRootElement //serializa o objeto
+@XmlAccessorType(XmlAccessType.FIELD) //todos os campo serao serializados por padrao
 public class Carrinho {
 
 	private List<Produto> produtos = new ArrayList<Produto>();
@@ -18,6 +20,10 @@ public class Carrinho {
 	private String cidade;
 	private long id;
 
+	//construtor padrao obrigatorio para serializar com JAXB
+	public Carrinho() {
+	}
+	
 	public Carrinho adiciona(Produto produto) {
 		produtos.add(produto);
 		return this;

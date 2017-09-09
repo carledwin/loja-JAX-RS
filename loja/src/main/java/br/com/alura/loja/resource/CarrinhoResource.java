@@ -10,7 +10,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -41,6 +40,19 @@ public class CarrinhoResource {
 		return Response.created(uri).build();
 	}
 	
+	@POST
+	@Path("xml/serializado")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_XML)
+	public Response adicionaSerializado(Carrinho carrinho) {
+		
+		new CarrinhoDAO().adiciona(carrinho);
+		
+		URI uri = URI.create("/carrinhos/xml/" + carrinho.getId());
+		
+		return Response.created(uri).build();
+	}
+	
   /*
     Via QueryParam 
     http://localhost:8090/carrinhos?id=1
@@ -52,10 +64,22 @@ public class CarrinhoResource {
 	 Via PathParam
 	 http://localhost:8090/carrinhos/1*/	
 	@GET
+	@Path("xml/serializado/{id}")
+	@Produces(MediaType.APPLICATION_XML)
+	public Carrinho busca(@PathParam("id") long id) {
+		Carrinho carrinho = new CarrinhoDAO().busca(id);
+		
+		//retornando objeto serializado	
+		return carrinho;
+	}
+	
+	@GET
 	@Path("xml/{id}")
 	@Produces(MediaType.APPLICATION_XML)
 	public String buscaToXML(@PathParam("id") long id) {
+		
 		Carrinho carrinho = new CarrinhoDAO().busca(id);
+		
 		return carrinho.toXML();
 	}
 	
@@ -90,6 +114,17 @@ public class CarrinhoResource {
 		Produto produto = (Produto) new XStream().fromXML(conteudo);
 		
 		carrinho.trocaQuantidade(produto);
+		
+		return Response.ok().build();
+	}
+	
+	@PUT
+	@Path("xml/serializado/{id}/produtos/{produtoId}/quantidade")
+	public Response alteraQuantidadeProdutoSerializado(Produto produto, @PathParam("id") long id, @PathParam("produtoId") long produtoId) {
+		
+		Carrinho carrinho = new CarrinhoDAO().busca(id);
+		
+		carrinho.troca(produto);
 		
 		return Response.ok().build();
 	}
