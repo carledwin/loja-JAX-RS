@@ -1,0 +1,7 @@
+zipar a pasta WEB-INF  e o arquivo index.html e renomear para loja.war
+
+colar o arquivo loja.war na pasta webapp do tomcat 
+
+acessar a pagina inicial em http://localhost:8088/loja
+
+acessar a api em http://localhost:8088/loja/api/carrinhos/xml/1 por exemplo
